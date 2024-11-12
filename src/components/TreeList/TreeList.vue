@@ -1,24 +1,23 @@
 <script setup lang="ts">
-import type { TreeListItem } from './types'
+import { provide, ref } from 'vue'
+import type { TreeListProps, TreeListUtils } from './types'
+import TreeListItem from './TreeListItem.vue'
+import { useTreeListExpansion } from './useTreeListExpansion'
+import { TREE_LIST_UTILS_INJECTION_KEY } from './constants'
 
-defineProps<{
-  items: TreeListItem[]
-}>()
+const { initiallyExpandedValues, getChildren } = defineProps<TreeListProps>()
+
+const { handleExpansion, checkExpanded } = useTreeListExpansion(initiallyExpandedValues)
+
+provide<TreeListUtils>(TREE_LIST_UTILS_INJECTION_KEY, { getChildren, checkExpanded })
 </script>
 
 <template>
-  <ul>
-    <template v-for="item in items" :key="item.key">
-      <li>
-        <slot name="item" v-bind="item">
-          {{ item.key }}
-        </slot>
-        <TreeList v-if="item.children?.length" :items="item.children">
-          <template #item="child: TreeListItem">
-            <slot name="item" v-bind="child" />
-          </template>
-        </TreeList>
-      </li>
-    </template>
+  <ul @click="handleExpansion">
+    <TreeListItem v-for="value in rootValues" :key="value" :value>
+      <template #item="item">
+        <slot v-bind="item" />
+      </template>
+    </TreeListItem>
   </ul>
 </template>
