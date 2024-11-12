@@ -1,5 +1,4 @@
-export interface TreeListNode {
+export interface TreeListItem {
   key: string
-  label: string
-  children: TreeListNode[]
+  children?: TreeListItem[]
 }
