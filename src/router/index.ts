@@ -10,7 +10,7 @@ const router = createRouter({
       component: HomeView,
     },
     {
-      path: '/:path',
+      path: '/:page',
       name: 'page',
       component: () => import('@/views/PageView.vue'),
       props: true,

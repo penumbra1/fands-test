@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { provide, ref } from 'vue'
+import { provide } from 'vue'
 import type { TreeListProps, TreeListUtils } from './types'
 import TreeListItem from './TreeListItem.vue'
 import { useTreeListExpansion } from './useTreeListExpansion'

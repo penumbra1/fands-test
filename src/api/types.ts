@@ -6,3 +6,8 @@ export interface Page {
   parentKey?: string
   childPageKeys?: string[]
 }
+
+export interface GetPagesResponse {
+  pages: Record<string, Page>
+  rootLevelKeys: string[]
+}

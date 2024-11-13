@@ -1,26 +1,27 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import TreeList from './TreeList/TreeList.vue'
+
+import { useFetch } from '@vueuse/core'
+import type { GetPagesResponse } from '@/api/types'
+
+const { isFetching, error, data } = useFetch(import.meta.env.VITE_APP_PAGES_URL)
+  .get()
+  .json<GetPagesResponse>()
 </script>
 
 <template>
   <nav>
     <TreeList
-      :root-values="['one', 'two', 'three']"
+      v-if="data"
+      :root-values="data?.rootLevelKeys"
       :initially-expanded-values="['three']"
-      :get-children="
-        (v) =>
-          ({
-            one: ['one-child'],
-            three: ['three-child-1', 'three-child-2'],
-            'three-child-2': ['three-grandchild'],
-          })[v]
-      "
-      :get-parent="() => undefined"
+      :get-children="(v) => data?.pages[v].childPageKeys"
     >
       <template v-slot="{ value }">
-        <!-- TODO: should parents be clickable as links? -->
-        <RouterLink :to="{ name: 'page', params: { path: value } }">{{ value }}</RouterLink>
+        <RouterLink :to="{ name: 'page', params: { page: data?.pages[value].link } }">{{
+          data?.pages[value].name
+        }}</RouterLink>
       </template>
     </TreeList>
   </nav>

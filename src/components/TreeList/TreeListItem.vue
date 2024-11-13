@@ -13,7 +13,7 @@ const children = getChildren?.(value)
 <template>
   <li>
     <div>
-      <slot name="item" v-bind="{ value }">
+      <slot name="item" :value>
         {{ value }}
       </slot>
       <TreeListExpandButton
