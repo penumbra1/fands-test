@@ -6,6 +6,10 @@
     "composite": true,
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.app.tsbuildinfo",
 
+    // Override "@vue/tsconfig/tsconfig.dom.json" to target ES2022
+    "target": "ES2022",
+    "lib": ["ES2022", "DOM", "DOM.Iterable"],
+
     "baseUrl": ".",
     "paths": {
       "@/*": ["./src/*"]
