@@ -16,7 +16,7 @@ export const mockPages: GetPagesResponse = {
       childPageKeys: ['two_one', 'two_two'],
     },
     two_one: {
-      key: 'two-one',
+      key: 'two_one',
       name: 'Two one',
       link: 'two-one.html',
       level: 1,
@@ -52,7 +52,7 @@ export const mockPages: GetPagesResponse = {
       childPageKeys: ['three_one'],
     },
     three_one: {
-      key: 'three-one',
+      key: 'three_one',
       name: 'Three one',
       link: 'three-one.html',
       level: 1,

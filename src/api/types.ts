@@ -7,7 +7,9 @@ export interface Page {
   childPageKeys?: string[]
 }
 
+export type Pages = Record<string, Page>
+
 export interface GetPagesResponse {
-  pages: Record<string, Page>
+  pages: Pages
   rootLevelKeys: string[]
 }

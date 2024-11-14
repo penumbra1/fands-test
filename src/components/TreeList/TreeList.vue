@@ -13,7 +13,7 @@ provide<TreeListUtils>(TREE_LIST_UTILS_INJECTION_KEY, { getChildren, checkExpand
 </script>
 
 <template>
-  <ul @click="handleExpansion">
+  <ul @click="handleExpansion" v-if="rootValues.length">
     <TreeListItem v-for="value in rootValues" :key="value" :value>
       <template #item="item">
         <slot v-bind="item" />

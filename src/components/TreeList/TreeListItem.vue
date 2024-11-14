@@ -21,7 +21,7 @@ const children = getChildren?.(value)
         :[`data-${String(TREE_LIST_EXPANSION_ATTRIBUTE)}`]="value"
       />
     </div>
-    <ul v-if="children?.length && checkExpanded?.(value)">
+    <ul v-if="checkExpanded?.(value)">
       <TreeListItem v-for="child in children" :value="child" :key="child">
         <template #item="item: { value: string }">
           <slot name="item" v-bind="item" />
