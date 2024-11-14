@@ -38,7 +38,7 @@ function getChildren(value: string) {
       :initially-expanded-values="initiallyExpandedValues"
       :get-children="getChildren"
     >
-      <template v-slot="{ value }">
+      <template #item="{ value }">
         <RouterLink :to="{ name: 'page', params: { page: data?.pages[value].link } }">{{
           data?.pages[value].name
         }}</RouterLink>

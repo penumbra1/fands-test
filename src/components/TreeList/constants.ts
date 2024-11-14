@@ -1,2 +1,1 @@
-export const TREE_LIST_EXPANSION_ATTRIBUTE = 'treelistexpand'
-export const TREE_LIST_UTILS_INJECTION_KEY = 'tree-list-utils'
+export const TREELIST_EXPANDED_INJECTION_KEY = 'treelist-expanded'

@@ -1,32 +1,21 @@
 <script setup lang="ts">
-import type { TreeListUtils } from './types'
-import TreeListExpandButton from './TreeListExpandButton.vue'
-import { inject } from 'vue'
-import { TREE_LIST_UTILS_INJECTION_KEY, TREE_LIST_EXPANSION_ATTRIBUTE } from './constants'
+import type { TreeListItemProps } from './types'
+import TreeListItemParent from './TreeListItemParent.vue'
 
-const { value } = defineProps<{ value: string }>()
-
-const { getChildren, checkExpanded } = inject<TreeListUtils>(TREE_LIST_UTILS_INJECTION_KEY) ?? {}
-const children = getChildren?.(value)
+defineProps<TreeListItemProps>()
 </script>
 
 <template>
   <li>
-    <div>
+    <TreeListItemParent v-if="children" :value :children>
+      <template #item="item: { value: string }">
+        <slot name="item" v-bind="item" />
+      </template>
+    </TreeListItemParent>
+    <div role="treeitem" v-else>
       <slot name="item" :value>
         {{ value }}
       </slot>
-      <TreeListExpandButton
-        v-if="children?.length"
-        :[`data-${String(TREE_LIST_EXPANSION_ATTRIBUTE)}`]="value"
-      />
     </div>
-    <ul v-if="checkExpanded?.(value)">
-      <TreeListItem v-for="child in children" :value="child" :key="child">
-        <template #item="item: { value: string }">
-          <slot name="item" v-bind="item" />
-        </template>
-      </TreeListItem>
-    </ul>
   </li>
 </template>

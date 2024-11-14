@@ -4,6 +4,8 @@ export interface TreeListProps {
   initiallyExpandedValues?: string[]
 }
 
-export interface TreeListUtils extends Pick<TreeListProps, 'getChildren'> {
-  checkExpanded: (value: string) => boolean
+export type TreeListItemProps = {
+  value: string
+  children?: string[]
+  initiallyExpanded?: boolean
 }
