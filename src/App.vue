@@ -56,5 +56,6 @@ nav {
 main {
   display: flex;
   justify-content: center;
+  padding: 24px;
 }
 </style>
