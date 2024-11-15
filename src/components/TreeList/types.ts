@@ -1,11 +1,22 @@
+import type { HTMLAttributes } from 'vue'
+
 export interface TreeListProps {
   rootValues: string[]
-  getChildren: (value: string) => string[] | undefined
+  getItemLabel: (value: string) => string
+  getItemChildren: (value: string) => string[] | undefined
   initiallyExpandedValues?: string[]
 }
 
-export type TreeListItemProps = {
+export interface TreeListItemProps {
   value: string
-  children?: string[]
-  initiallyExpanded?: boolean
+}
+
+export interface TreeListItemSlotProps
+  extends Pick<HTMLAttributes, 'aria-label' | 'aria-owns' | 'aria-expanded' | 'role'> {
+  value: string
+  onClick?: () => void
+}
+
+export interface TreeListInjection extends Pick<TreeListProps, 'getItemChildren' | 'getItemLabel'> {
+  initiallyExpandedValues?: Set<string>
 }

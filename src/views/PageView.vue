@@ -1,9 +1,9 @@
 <script setup lang="ts">
-defineProps<{ path?: string }>()
+defineProps<{ page?: string }>()
 </script>
 
 <template>
-  <h1>{{ path }}</h1>
+  <h1>{{ page }}</h1>
 </template>
 
 <style></style>

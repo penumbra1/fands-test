@@ -1,1 +1,1 @@
-export const TREELIST_EXPANDED_INJECTION_KEY = 'treelist-expanded'
+export const TREELIST_INJECTION_KEY = 'treelist-injection'

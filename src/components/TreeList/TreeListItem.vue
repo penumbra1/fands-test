@@ -1,21 +1,26 @@
 <script setup lang="ts">
-import type { TreeListItemProps } from './types'
-import TreeListItemParent from './TreeListItemParent.vue'
+import type { TreeListInjection, TreeListItemProps, TreeListItemSlotProps } from './types'
+import TreeListItemSubtree from './TreeListItemSubtree.vue'
+import { inject } from 'vue'
+import { TREELIST_INJECTION_KEY } from './constants'
 
-defineProps<TreeListItemProps>()
+const { value } = defineProps<TreeListItemProps>()
+
+const { getItemLabel, getItemChildren } = inject<TreeListInjection>(TREELIST_INJECTION_KEY) ?? {}
+
+const children = getItemChildren?.(value)
+const label = getItemLabel?.(value)
 </script>
 
 <template>
-  <li>
-    <TreeListItemParent v-if="children" :value :children>
-      <template #item="item: { value: string }">
-        <slot name="item" v-bind="item" />
+  <li role="none">
+    <slot name="item" v-if="!children?.length" v-bind="{ value, role: 'treeitem' }">
+      <div role="treeitem">{{ label }}</div>
+    </slot>
+    <TreeListItemSubtree v-else :value>
+      <template #subtree="subtree">
+        <slot name="item" v-bind="subtree" />
       </template>
-    </TreeListItemParent>
-    <div role="treeitem" v-else>
-      <slot name="item" :value>
-        {{ value }}
-      </slot>
-    </div>
+    </TreeListItemSubtree>
   </li>
 </template>
