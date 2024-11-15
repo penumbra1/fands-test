@@ -1,16 +1,14 @@
 <script setup lang="ts">
 import TreeList from '@/components/TreeList/TreeList.vue'
-import { useFetch } from '@vueuse/core'
 import type { GetPagesResponse } from '@/api/types'
 import TableOfContentsLink from './TableOfContentsLink.vue'
 import { useCurrentPage } from './useCurrentPage'
 import { useScrollToCurrentPageLink } from './useScrollToCurrentPageLink'
 import TableOfContentsError from './TableOfContentsError.vue'
 import { useTemplateRef } from 'vue'
+import { useFetch } from '@/api/useFetch'
 
-const { isFetching, error, data } = useFetch(import.meta.env.VITE_APP_PAGES_URL)
-  .get()
-  .json<GetPagesResponse>()
+const { error, data } = useFetch<GetPagesResponse>(import.meta.env.VITE_APP_PAGES_URL)
 
 const currentPage = useCurrentPage(data)
 

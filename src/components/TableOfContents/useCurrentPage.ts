@@ -2,9 +2,9 @@ import { traversePageAncestors } from '@/api/traversePageAncestors'
 import { mapPageKeyByLink } from '@/api/mapPageKeyByLink'
 import type { GetPagesResponse } from '@/api/types'
 import { useRouteParams } from '@vueuse/router'
-import { computed, type Ref } from 'vue'
+import { computed, type ShallowRef } from 'vue'
 
-export function useCurrentPage(data: Ref<GetPagesResponse | null>) {
+export function useCurrentPage(data: ShallowRef<GetPagesResponse | undefined>) {
   const currentPage = useRouteParams<string | undefined>('page')
 
   // There is no reliable way to derive a page key from its link, so we have to maintain this mapping.

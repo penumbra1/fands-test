@@ -13,3 +13,5 @@ export interface GetPagesResponse {
   pages: Pages
   rootLevelKeys: string[]
 }
+
+export type FetchStatus = 'ready' | 'loading' | 'error'
