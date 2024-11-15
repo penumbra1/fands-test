@@ -6,10 +6,8 @@ import { TREELIST_INJECTION_KEY } from './constants'
 
 const { initiallyExpandedValues, getItemChildren, getItemLabel } = defineProps<TreeListProps>()
 
-const initiallyExpandedSet = new Set(initiallyExpandedValues)
-
 provide<TreeListInjection>(TREELIST_INJECTION_KEY, {
-  initiallyExpandedValues: initiallyExpandedSet,
+  initiallyExpandedValues,
   getItemChildren,
   getItemLabel,
 })

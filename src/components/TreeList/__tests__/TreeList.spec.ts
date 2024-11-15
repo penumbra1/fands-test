@@ -42,7 +42,7 @@ describe('TreeList', () => {
           rootValues,
           getItemChildren: (value) => children[value],
           getItemLabel: (value) => value,
-          initiallyExpandedValues: ['one', 'one_one'],
+          initiallyExpandedValues: new Set(['one', 'one_one']),
         },
         attachTo: document.body,
       })

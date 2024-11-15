@@ -4,7 +4,7 @@ export interface TreeListProps {
   rootValues: string[]
   getItemLabel: (value: string) => string
   getItemChildren: (value: string) => string[] | undefined
-  initiallyExpandedValues?: string[]
+  initiallyExpandedValues?: Set<string>
 }
 
 export interface TreeListItemProps {
@@ -17,6 +17,7 @@ export interface TreeListItemSlotProps
   onClick?: () => void
 }
 
-export interface TreeListInjection extends Pick<TreeListProps, 'getItemChildren' | 'getItemLabel'> {
-  initiallyExpandedValues?: Set<string>
-}
+export type TreeListInjection = Pick<
+  TreeListProps,
+  'getItemChildren' | 'getItemLabel' | 'initiallyExpandedValues'
+>
