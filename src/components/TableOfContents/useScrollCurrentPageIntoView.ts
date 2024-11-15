@@ -1,5 +1,5 @@
 import { watchOnce } from "@vueuse/core";
-import { useTemplateRef, type ShallowRef } from "vue";
+import { useTemplateRef } from "vue";
 import type TreeList from "../TreeList/TreeList.vue";
 
 const refKey = 'treelist'
