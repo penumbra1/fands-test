@@ -27,14 +27,14 @@ defineProps<{ page: string; text: string; expands?: boolean }>()
     color 75ms ease;
 }
 
-.link[aria-current="page"] {
+.link[aria-current='page'] {
   background-color: var(--background-color-primary);
   color: var(--text-color-primary);
   font-weight: 600;
 }
 
-.link:hover:not([aria-current="page"]) {
-  color:  var(--text-color);
+.link:hover:not([aria-current='page']) {
+  color: var(--text-color);
   background-color: var(--background-color-accent);
 }
 

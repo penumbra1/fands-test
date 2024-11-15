@@ -1,6 +1,6 @@
 import { mapPageKeyByLink } from '../mapPageKeyByLink'
 
-describe('findPageAncestors', () => {
+describe('traversePageAncestors', () => {
   test('returns an empty mapping when no pages are provided', () => {
     expect(mapPageKeyByLink({})).toEqual({})
   })

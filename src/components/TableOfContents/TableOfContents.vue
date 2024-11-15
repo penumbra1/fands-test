@@ -3,17 +3,19 @@ import TreeList from '@/components/TreeList/TreeList.vue'
 import { useFetch } from '@vueuse/core'
 import type { GetPagesResponse } from '@/api/types'
 import TableOfContentsLink from './TableOfContentsLink.vue'
-import { useCurrentPageBreadcrumbs } from './useCurrentPageBreadcrumbs'
-import { computed } from 'vue'
-import { useScrollCurentPageIntoView } from './useScrollCurrentPageIntoView'
+import { useCurrentPage } from './useCurrentPage'
+import { useScrollToCurrentPageLink } from './useScrollToCurrentPageLink'
 import TableOfContentsError from './TableOfContentsError.vue'
+import { useTemplateRef } from 'vue'
 
 const { isFetching, error, data } = useFetch(import.meta.env.VITE_APP_PAGES_URL)
   .get()
   .json<GetPagesResponse>()
 
-const currentPageBreadcrumbs = useCurrentPageBreadcrumbs(data)
-const initiallyExpandedValues = computed(() => new Set(currentPageBreadcrumbs.value))
+const currentPage = useCurrentPage(data)
+
+const list = useTemplateRef('list')
+useScrollToCurrentPageLink(list)
 
 function getItemChildren(value: string) {
   return data?.value?.pages[value].childPageKeys
@@ -22,20 +24,18 @@ function getItemChildren(value: string) {
 function getItemLabel(value: string) {
   return data?.value?.pages[value].name ?? value
 }
-
-const refKey = useScrollCurentPageIntoView()
 </script>
 
 <template>
   <TreeList
     v-if="data"
     :root-values="data?.rootLevelKeys"
-    :initially-expanded-values
+    :initially-expanded-values="currentPage?.breadcrumbs"
     :get-item-children
     :get-item-label
     aria-label="Page Navigation"
     :class="$style.root"
-    :ref="refKey"
+    ref="list"
   >
     <template #item="{ value, onClick, ...slotProps }">
       <TableOfContentsLink
