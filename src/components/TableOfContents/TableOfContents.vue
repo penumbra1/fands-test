@@ -12,6 +12,14 @@ const { isFetching, error, data } = useFetch(import.meta.env.VITE_APP_PAGES_URL)
 
 const currentPageBreadcrumbs = useCurrentPageBreadcrumbs(data)
 
+function getItemChildren(value: string) {
+  return data?.value?.pages[value].childPageKeys
+}
+
+function getItemLabel(value: string) {
+  return data?.value?.pages[value].name ?? value
+}
+
 const list = useTemplateRef('treelist')
 
 watchOnce(list, () => {
@@ -20,14 +28,6 @@ watchOnce(list, () => {
     currentLink.scrollIntoView({ behavior: 'smooth' })
   }
 })
-
-function getItemChildren(value: string) {
-  return data?.value?.pages[value].childPageKeys
-}
-
-function getItemLabel(value: string) {
-  return data?.value?.pages[value].name ?? value
-}
 </script>
 
 <template>

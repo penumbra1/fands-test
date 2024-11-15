@@ -23,17 +23,17 @@ defineProps<{ page: string; text: string; expands?: boolean }>()
   color: var(--text-color-muted);
   text-decoration: none;
   transition:
-    color 100ms ease-in,
-    background-color 75ms ease-in;
+    background-color 100ms ease-in,
+    color 75ms ease;
 }
 
-.router-link-active {
+.link[aria-current="page"] {
   background-color: var(--background-color-primary);
   color: var(--text-color-primary);
   font-weight: 600;
 }
 
-.link:hover:not(.router-link-active) {
+.link:hover:not([aria-current="page"]) {
   color:  var(--text-color);
   background-color: var(--background-color-accent);
 }
