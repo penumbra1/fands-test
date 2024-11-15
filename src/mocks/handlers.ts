@@ -1,5 +1,5 @@
 import { http, HttpResponse } from 'msw'
-import { mockPages } from './mockPages'
+// import { mockPages } from './mockPages'
 import mockFullPages from './mockFullPages.json'
 
 export const handlers = [

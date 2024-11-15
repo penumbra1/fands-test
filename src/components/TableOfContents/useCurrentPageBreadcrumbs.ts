@@ -1,6 +1,6 @@
 import { findPageAncestors } from "@/api/findPageAncestors";
 import { mapPageKeyByLink } from "@/api/mapPageKeyByLink";
-import type { GetPagesResponse, Pages } from "@/api/types";
+import type { GetPagesResponse } from "@/api/types";
 import { useRouteParams } from "@vueuse/router";
 import { computed, type Ref } from "vue";
 

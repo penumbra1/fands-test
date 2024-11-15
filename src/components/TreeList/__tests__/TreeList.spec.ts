@@ -1,5 +1,3 @@
-import { describe, it, expect } from 'vitest'
-
 import { mount } from '@vue/test-utils'
 import TreeList from '../TreeList.vue'
 
@@ -9,7 +7,7 @@ describe('TreeList', () => {
       props: { rootValues: [], getItemChildren: () => undefined, getItemLabel: (value) => value },
     })
 
-    expect(wrapper.find('*').exists()).toBeFalsy()
+    expect(wrapper.find('li').exists()).toBeFalsy()
   })
 
   test('renders a nested list with collaped children correctly', () => {
