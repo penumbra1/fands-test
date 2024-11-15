@@ -6,6 +6,7 @@ import TableOfContentsLink from './TableOfContentsLink.vue'
 import { useCurrentPageBreadcrumbs } from './useCurrentPageBreadcrumbs'
 import { computed } from 'vue'
 import { useScrollCurentPageIntoView } from './useScrollCurrentPageIntoView'
+import TableOfContentsError from './TableOfContentsError.vue'
 
 const { isFetching, error, data } = useFetch(import.meta.env.VITE_APP_PAGES_URL)
   .get()
@@ -47,6 +48,7 @@ const refKey = useScrollCurentPageIntoView()
       />
     </template>
   </TreeList>
+  <TableOfContentsError v-else-if="error" />
 </template>
 
 <style module>
