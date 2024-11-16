@@ -19,15 +19,8 @@ pnpm demo
 pnpm test:unit
 ```
 
-### End-to-end
+## Live demo
 
-```sh
-# Development build
-pnpm test:e2e:dev
-```
+https://penumbra1.github.io/fands-test/
 
-```sh
-# Production build (recommended for CI)
-pnpm build
-pnpm test:e2e
-```
+Displays current work on the component, including all changes made after handoff to fands (**post-handoff** branch)
