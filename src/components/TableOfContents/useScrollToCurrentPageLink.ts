@@ -4,7 +4,7 @@ export function useScrollToCurrentPageLink(list: ShallowRef<ComponentPublicInsta
   const unwatch = watchEffect(() => {
     const currentPageLink = list?.value?.$el.querySelector('[aria-current="page"]')
     if (currentPageLink) {
-      currentPageLink?.scrollIntoView({ behavior: 'smooth' })
+      currentPageLink?.scrollIntoView()
       unwatch()
     }
   })
