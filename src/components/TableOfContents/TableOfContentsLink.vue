@@ -25,6 +25,7 @@ defineProps<{ page: string; text: string; expands?: boolean }>()
   transition:
     background-color 100ms ease-in,
     color 75ms ease;
+  scroll-margin-top: 50px;
 }
 
 .link[aria-current='page'] {
