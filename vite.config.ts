@@ -19,4 +19,5 @@ export default defineConfig({
   css: {
     transformer: 'lightningcss',
   },
+  base: process.env.NODE_ENV === 'production' ? '/fands-test/' : '/',
 })
