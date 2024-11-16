@@ -41,7 +41,9 @@ jobs:
       - name: Lint
         run: pnpm run lint
       - name: Build
-        run: pnpm run build
+        # Copy index.html to 404.html for so that GH Pages doesn't respond with 404
+        # when navigating directly to a page URL, e.g. /some-page-slug.html
+        run: pnpm run build && cp ./dist/index.html ./dist/404.html
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: Upload artifact
