@@ -35,14 +35,11 @@ function getItemLabel(value: string) {
     :class="$style.root"
     ref="list"
   >
-    <template #item="{ value, onClick, ...slotProps }">
+    <template #item="{ value, ...slotProps }">
       <TableOfContentsLink
         :page="data?.pages[value].link"
         :text="getItemLabel(value)"
-        @click.capture="onClick"
         v-bind="slotProps"
-        :expands="Object.hasOwn(slotProps, 'aria-expanded')"
-        class="link"
       />
     </template>
   </TreeList>

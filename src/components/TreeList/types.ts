@@ -11,8 +11,12 @@ export interface TreeListItemProps {
   value: string
 }
 
-export interface TreeListItemSlotProps
-  extends Pick<HTMLAttributes, 'aria-label' | 'aria-owns' | 'aria-expanded' | 'role'> {
+export type TreeListItemHTMLAttributes = Pick<
+  HTMLAttributes,
+  'aria-label' | 'aria-owns' | 'aria-expanded' | 'role'
+>
+
+export interface TreeListItemSlotProps extends TreeListItemHTMLAttributes {
   value: string
   onClick?: () => void
 }

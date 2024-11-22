@@ -1,14 +1,21 @@
 <script setup lang="ts">
 import { RouterLink } from 'vue-router'
 import Chevron from '@/components/icons/chevron.svg?component'
+import type { TreeListItemHTMLAttributes } from '../TreeList/types'
 
-defineProps<{ page: string; text: string; expands?: boolean }>()
+interface Props extends /* @vue-ignore */ TreeListItemHTMLAttributes {
+  page: string
+  text: string
+  onClick?: () => void
+}
+
+defineProps<Props>()
 </script>
 
 <template>
-  <RouterLink :to="{ name: 'page', params: { page } }" class="link">
+  <RouterLink :to="{ name: 'page', params: { page } }" @click.capture="onClick" class="link">
     <span>{{ text }}</span>
-    <Chevron v-if="expands" class="expand-indicator" />
+    <Chevron v-if="$attrs['aria-expanded'] !== undefined" class="expand-indicator" />
   </RouterLink>
 </template>
 
