@@ -18,8 +18,8 @@ const label = getItemLabel?.(value)
       <div role="treeitem">{{ label }}</div>
     </slot>
     <TreeListItemSubtree v-else :value>
-      <template #subtree="subtree">
-        <slot name="item" v-bind="subtree" />
+      <template #item="item">
+        <slot name="item" v-bind="item" />
       </template>
     </TreeListItemSubtree>
   </li>

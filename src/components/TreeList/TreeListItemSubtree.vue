@@ -20,7 +20,7 @@ function onClick() {
   toggleIsExpanded()
 }
 
-const itemSlotProps = computed(() => ({
+const parentItemSlotProps = computed(() => ({
   value,
   onClick,
   role: 'treeitem',
@@ -30,15 +30,15 @@ const itemSlotProps = computed(() => ({
 </script>
 
 <template>
-  <slot name="subtree" v-bind="itemSlotProps">
-    <div v-bind="itemSlotProps">
+  <slot name="item" v-bind="parentItemSlotProps">
+    <div v-bind="parentItemSlotProps">
       {{ label }}
     </div>
   </slot>
   <ul role="group" v-show="isExpanded" :id="subtreeId" :aria-label="label">
     <TreeListItem v-for="child in children" :value="child" :key="child">
       <template #item="item: TreeListItemSlotProps">
-        <slot name="subtree" v-bind="item" />
+        <slot name="item" v-bind="item" />
       </template>
     </TreeListItem>
   </ul>
