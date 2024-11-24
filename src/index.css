@@ -6,6 +6,7 @@ body {
   --text-color-muted: #6b7280;
   --background-color-primary: #e6e0ff;
   --text-color-primary: #1e00a3;
+  --outline-color: #c1b8e5;
 
   margin: 0px;
   background-color: var(--background-color);

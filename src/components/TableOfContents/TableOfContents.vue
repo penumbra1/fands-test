@@ -7,6 +7,7 @@ import { useScrollToCurrentPageLink } from './useScrollToCurrentPageLink'
 import TableOfContentsError from './TableOfContentsError.vue'
 import { useTemplateRef } from 'vue'
 import { useFetch } from '@/api/useFetch'
+import TableOfContentsFilter from './TableOfContentsFilter.vue'
 
 const { error, data } = useFetch<GetPagesResponse>(import.meta.env.VITE_APP_PAGES_URL)
 
@@ -31,9 +32,9 @@ function getItemLabel(value: string) {
     :initially-expanded-values="currentPage?.breadcrumbs"
     :get-item-children
     :get-item-label
-    aria-label="Page Navigation"
-    :class="$style.root"
+    aria-label="Page navigation"
     ref="list"
+    :class="$style['table-of-contents']"
   >
     <template #item="{ value, ...slotProps }">
       <TableOfContentsLink
@@ -42,24 +43,29 @@ function getItemLabel(value: string) {
         v-bind="slotProps"
       />
     </template>
+    <template #filter="{ updateFilter }">
+      <TableOfContentsFilter :onChange="updateFilter" />
+    </template>
   </TreeList>
   <TableOfContentsError v-else-if="error" />
 </template>
 
-<style module>
-ul[role='group'] {
-  padding-inline-start: 10px;
-  margin-inline-start: 12px;
-  position: relative;
-}
+<style lang="scss" module>
+.table-of-contents {
+  padding-inline: 16px;
+  padding-block-end: 16px;
 
-ul[role='group']::after {
-  content: '';
-  position: absolute;
-  top: 4px;
-  bottom: 4px;
-  left: 4px;
-  width: 1px;
-  background-color: var(--border-color);
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    user-select: none;
+  }
+
+  ul[role='group'] {
+    padding-inline-start: 10px;
+    margin-inline-start: 12px;
+    position: relative;
+  }
 }
 </style>

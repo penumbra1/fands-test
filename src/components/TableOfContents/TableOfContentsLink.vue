@@ -20,7 +20,7 @@ defineProps<Props>()
     :title="text"
   >
     <span>{{ text }}</span>
-    <Chevron v-if="$attrs['aria-expanded'] !== undefined" class="expand-indicator" />
+    <Chevron v-if="$attrs['aria-expanded'] !== undefined" aria-hidden class="expand-indicator" />
   </RouterLink>
 </template>
 
@@ -30,14 +30,14 @@ defineProps<Props>()
   align-items: center;
   gap: 4px;
   padding: 8px 12px;
-  margin-block: 2px;
   background-color: transparent;
   color: var(--text-color-muted);
   text-decoration: none;
   transition:
     background-color 100ms ease-in,
     color 75ms ease;
-  scroll-margin-top: 50px;
+  scroll-margin-top: 64px;
+  outline: none;
 }
 
 .link[aria-current='page'] {
@@ -46,7 +46,13 @@ defineProps<Props>()
   font-weight: 600;
 }
 
-.link:hover:not([aria-current='page']) {
+.link:focus-visible {
+  outline: 2px solid var(--outline-color);
+  outline-offset: -2px;
+}
+
+.link:hover:not([aria-current='page']),
+.link:active:not([aria-current='page']) {
   color: var(--text-color);
   background-color: var(--background-color-accent);
 }

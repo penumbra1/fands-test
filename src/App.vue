@@ -47,7 +47,6 @@ nav {
   grid-column: 1;
   height: calc(100dvh - 4rem);
   overflow: auto;
-  padding: 16px;
   scrollbar-width: thin;
   scrollbar-gutter: stable;
   border-right: 1px solid var(--border-color);
