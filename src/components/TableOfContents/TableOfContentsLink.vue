@@ -13,7 +13,12 @@ defineProps<Props>()
 </script>
 
 <template>
-  <RouterLink :to="{ name: 'page', params: { page } }" @click.capture="onClick" class="link">
+  <RouterLink
+    :to="{ name: 'page', params: { page } }"
+    @click.capture="onClick"
+    class="link"
+    :title="text"
+  >
     <span>{{ text }}</span>
     <Chevron v-if="$attrs['aria-expanded'] !== undefined" class="expand-indicator" />
   </RouterLink>
