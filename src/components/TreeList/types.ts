@@ -1,10 +1,11 @@
-import type { HTMLAttributes } from 'vue'
+import type { HTMLAttributes, Ref } from 'vue'
 
 export interface TreeListProps {
   rootValues: string[]
   getItemLabel: (value: string) => string
   getItemChildren: (value: string) => string[] | undefined
   initiallyExpandedValues?: Set<string>
+  ariaLabel?: string
 }
 
 export interface TreeListItemProps {
@@ -21,7 +22,6 @@ export interface TreeListItemSlotProps extends TreeListItemHTMLAttributes {
   onClick?: () => void
 }
 
-export type TreeListInjection = Pick<
-  TreeListProps,
-  'getItemChildren' | 'getItemLabel' | 'initiallyExpandedValues'
->
+export type TreeListInjection = Pick<TreeListProps, 'getItemChildren' | 'getItemLabel'> & {
+  expandedValues: Ref<Set<string> | undefined>
+}

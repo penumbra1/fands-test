@@ -1,28 +1,27 @@
 <script setup lang="ts">
 import { useToggle } from '@vueuse/core'
 import { TREELIST_INJECTION_KEY } from './constants'
-import { computed, inject } from 'vue'
+import { computed, inject, watchEffect } from 'vue'
 import TreeListItem from './TreeListItem.vue'
 import type { TreeListInjection, TreeListItemProps, TreeListItemSlotProps } from './types'
 
 const { value } = defineProps<TreeListItemProps>()
 
-const { initiallyExpandedValues, getItemLabel, getItemChildren } =
+const { expandedValues, getItemLabel, getItemChildren } =
   inject<TreeListInjection>(TREELIST_INJECTION_KEY) ?? {}
 
 const subtreeId = `${value}-subtree`
-const children = getItemChildren?.(value)
 const label = getItemLabel?.(value)
 
-const [isExpanded, toggleIsExpanded] = useToggle(initiallyExpandedValues?.has(value))
+const [isExpanded, toggleIsExpanded] = useToggle(expandedValues?.value?.has(value))
 
-function onClick() {
-  toggleIsExpanded()
-}
+watchEffect(() => {
+  isExpanded.value = !!expandedValues?.value?.has(value)
+})
 
 const parentItemSlotProps = computed(() => ({
   value,
-  onClick,
+  onClick: () => toggleIsExpanded(),
   role: 'treeitem',
   'aria-owns': subtreeId,
   'aria-expanded': isExpanded.value,
@@ -36,7 +35,7 @@ const parentItemSlotProps = computed(() => ({
     </div>
   </slot>
   <ul role="group" v-show="isExpanded" :id="subtreeId" :aria-label="label">
-    <TreeListItem v-for="child in children" :value="child" :key="child">
+    <TreeListItem v-for="child in getItemChildren?.(value)" :value="child" :key="child">
       <template #item="item: TreeListItemSlotProps">
         <slot name="item" v-bind="item" />
       </template>

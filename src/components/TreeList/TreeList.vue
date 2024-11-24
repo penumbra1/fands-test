@@ -1,34 +1,35 @@
 <script setup lang="ts">
-import { provide } from 'vue'
+import { computed, provide } from 'vue'
 import type { TreeListInjection, TreeListItemSlotProps, TreeListProps } from './types'
 import TreeListItem from './TreeListItem.vue'
 import { TREELIST_INJECTION_KEY } from './constants'
+import { useFilter } from './useFilter'
 
-const { initiallyExpandedValues, getItemChildren, getItemLabel } = defineProps<TreeListProps>()
+const { initiallyExpandedValues, getItemChildren, getItemLabel, rootValues } =
+  defineProps<TreeListProps>()
+
+const { filteredValues, updateFilter, matchesFilter } = useFilter(rootValues, getItemChildren)
+
+const expandedValues = computed(() => filteredValues.value || initiallyExpandedValues)
 
 provide<TreeListInjection>(TREELIST_INJECTION_KEY, {
-  initiallyExpandedValues,
-  getItemChildren,
+  expandedValues,
+  getItemChildren: (value) => getItemChildren(value)?.filter(matchesFilter),
   getItemLabel,
 })
 </script>
 
-<template>
-  <ul v-if="rootValues.length" :class="$style.container" role="tree">
-    <TreeListItem v-for="value in rootValues" :key="value" :value>
-      <template #item="item: TreeListItemSlotProps">
-        <slot name="item" v-bind="item" />
+<template v-if="rootValues.length">
+  <div>
+    <slot name="filter" v-bind="{updateFilter}" />
+    <ul role="tree" :aria-label>
+      <template v-for="value in rootValues.filter(matchesFilter)" :key="value">
+        <TreeListItem :value>
+          <template #item="item: TreeListItemSlotProps">
+            <slot name="item" v-bind="item" />
+          </template>
+        </TreeListItem>
       </template>
-    </TreeListItem>
-  </ul>
+    </ul>
+  </div>
 </template>
-
-<style module>
-.container,
-.container ul {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  user-select: none;
-}
-</style>
