@@ -22,12 +22,12 @@ defineProps<{ onChange: (value: string) => void }>()
   --fade-height: 18px;
 
   position: sticky;
-  inset-block-start: 0;
+  top: 0;
   z-index: 1;
   display: flex;
   align-items: center;
-  padding-block-start: 16px;
-  margin-block-end: var(--fade-height);
+  padding-top: 16px;
+  margin-bottom: var(--fade-height);
   background-color: var(--background-color);
   color: var(--text-color-muted);
 }
@@ -35,7 +35,7 @@ defineProps<{ onChange: (value: string) => void }>()
 .container::after {
   content: '';
   position: absolute;
-  inset-block-start: 100%;
+  top: 100%;
   width: 100%;
   height: var(--fade-height);
   background: linear-gradient(var(--background-color), var(--background-color) 30%, transparent);
@@ -44,8 +44,8 @@ defineProps<{ onChange: (value: string) => void }>()
 input {
   width: 100%;
   margin: 0px;
-  padding: 8px;
-  padding-inline-end: 30px;
+  padding: 8px 10px;
+  padding-right: 32px;
   border: 1px solid var(--border-color);
   overflow: hidden;
   white-space: nowrap;
@@ -61,7 +61,7 @@ input:focus-visible {
 
 svg {
   position: absolute;
-  inset-inline-end: 8px;
+  right: 10px;
   pointer-events: none;
 }
 </style>

@@ -19,7 +19,7 @@ export type TreeListItemHTMLAttributes = Pick<
 
 export interface TreeListItemSlotProps extends TreeListItemHTMLAttributes {
   value: string
-  onClick?: () => void
+  toggleExpanded?: () => void
 }
 
 export type TreeListInjection = Pick<TreeListProps, 'getItemChildren' | 'getItemLabel'> & {

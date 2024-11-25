@@ -5,5 +5,3 @@ defineProps<{ page?: string }>()
 <template>
   <h1>{{ page }}</h1>
 </template>
-
-<style></style>

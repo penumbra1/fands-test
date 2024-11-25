@@ -21,7 +21,7 @@ watchEffect(() => {
 
 const parentItemSlotProps = computed(() => ({
   value,
-  onClick: () => toggleIsExpanded(),
+  toggleExpanded: () => toggleIsExpanded(),
   role: 'treeitem',
   'aria-owns': subtreeId,
   'aria-expanded': isExpanded.value,

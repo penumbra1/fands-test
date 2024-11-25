@@ -52,20 +52,36 @@ function getItemLabel(value: string) {
 
 <style lang="scss" module>
 .table-of-contents {
+  --gap: 2px;
+
   padding-inline: 16px;
-  padding-block-end: 16px;
+  padding-bottom: 16px;
 
   ul {
     list-style: none;
     margin: 0;
     padding: 0;
     user-select: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--gap);
   }
 
   ul[role='group'] {
-    padding-inline-start: 10px;
-    margin-inline-start: 12px;
     position: relative;
+    padding-left: 10px;
+    margin-left: 12px;
+    margin-top: var(--gap);
+
+    &::before {
+      content: '';
+      position: absolute;
+      top: 4px;
+      bottom: 4px;
+      left: 4px;
+      width: 1px;
+      background-color: var(--border-color);
+    }
   }
 }
 </style>

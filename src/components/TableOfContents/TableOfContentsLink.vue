@@ -6,7 +6,7 @@ import type { TreeListItemHTMLAttributes } from '../TreeList/types'
 interface Props extends /* @vue-ignore */ TreeListItemHTMLAttributes {
   page: string
   text: string
-  onClick?: () => void
+  toggleExpanded?: () => void
 }
 
 defineProps<Props>()
@@ -15,12 +15,18 @@ defineProps<Props>()
 <template>
   <RouterLink
     :to="{ name: 'page', params: { page } }"
-    @click.capture="onClick"
+    @click="toggleExpanded"
     class="link"
     :title="text"
   >
-    <span>{{ text }}</span>
-    <Chevron v-if="$attrs['aria-expanded'] !== undefined" aria-hidden class="expand-indicator" />
+    <span class="text">{{ text }}</span>
+    <span
+      class="expand-indicator"
+      v-if="$attrs['aria-expanded'] !== undefined"
+      @click.prevent.stop="toggleExpanded"
+    >
+      <Chevron aria-hidden />
+    </span>
   </RouterLink>
 </template>
 
@@ -28,15 +34,14 @@ defineProps<Props>()
 .link {
   display: flex;
   align-items: center;
-  gap: 4px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   background-color: transparent;
   color: var(--text-color-muted);
   text-decoration: none;
   transition:
     background-color 100ms ease-in,
     color 75ms ease;
-  scroll-margin-top: 64px;
+  scroll-margin-top: 72px;
   outline: none;
 }
 
@@ -54,25 +59,44 @@ defineProps<Props>()
 .link:hover:not([aria-current='page']),
 .link:active:not([aria-current='page']) {
   color: var(--text-color);
-  background-color: var(--background-color-accent);
+  background-color: var(--background-color-accent-light);
 }
 
-.link > span {
+.text {
   flex-grow: 1;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
+.link:has(.expand-indicator) {
+  position: relative;
+  padding-right: 34px;
+}
+
 .expand-indicator {
-  display: block;
+  display: flex;
+  place-items: center;
   flex-shrink: 0;
+  position: absolute;
+  right: 0;
+  inset-block: 0;
+  padding: 10px 8px;
+  background-color: transparent;
+  transition: background-color 100ms ease-in;
+}
+
+.link:not([aria-current='page']) .expand-indicator:hover {
+  background-color: var(--background-color-accent-dark);
+}
+
+.expand-indicator svg {
   width: 16px;
   height: 16px;
   transition: transform 100ms ease-in-out;
 }
 
-[aria-expanded='true'] .expand-indicator {
+[aria-expanded='true'] .expand-indicator svg {
   transform: rotate(90deg);
 }
 </style>
