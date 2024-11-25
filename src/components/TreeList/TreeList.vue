@@ -21,7 +21,9 @@ provide<TreeListInjection>(TREELIST_INJECTION_KEY, {
 
 <template v-if="rootValues.length">
   <div>
-    <slot name="filter" v-bind="{updateFilter}" />
+    <slot name="filter" v-bind="{ updateFilter }">
+      <input @input="(e) => updateFilter((e.target as HTMLInputElement).value)" />
+    </slot>
     <ul role="tree" :aria-label>
       <template v-for="value in rootValues.filter(matchesFilter)" :key="value">
         <TreeListItem :value>
